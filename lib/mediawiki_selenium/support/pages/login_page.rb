@@ -16,12 +16,15 @@ class LoginPage
   page_url URL.url("Special:UserLogin")
 
   div(:feedback, class: "errorbox")
-  button(:login, id: "wpLoginAttempt")
+  #button(:login, id: "wpLoginAttempt")
   a(:logout, href: /Special:UserLogout/)
-  text_field(:password, id: "wpPassword1")
+  #text_field(:password, id: "wpPassword1")
+  text_field(:passwordfield, xpath: '//*[@id="mw-content-text"]/div/form/fieldset/div[4]/input')
+  text_field(:usernamefield, xpath: '//*[@id="mw-content-text"]/div/form/fieldset/div[3]/input')
+  button(:login, class: "login-button big")
   a(:password_strength, text: "password strength")
   a(:phishing, text: "phishing")
-  text_field(:username, id: "wpName1")
+  #text_field(:username, id: "wpName1")
   a(:username_displayed, title: /Your user page/)
 
   def logged_in_as_element
@@ -32,6 +35,6 @@ class LoginPage
     self.password_element.when_present.send_keys(password)
     login_element.fire_event("onfocus")
     login_element.when_present.click
-    logout_element.when_present(10) if wait_for_logout_element
+    #logout_element.when_present(10) if wait_for_logout_element
   end
 end
